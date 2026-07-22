@@ -20,29 +20,6 @@ const createEmployee = async (req, res) => {
     });
   }
 };
-const getEmployeesByDepartment = async (req, res) => {
-  try {
-    const { department } = req.params;
-
-    const employees = await EmployeeModel.find({
-      department: {
-        $regex: new RegExp(`^${department}$`, "i"), // case-insensitive
-      },
-    }).sort({ updatedAt: -1 });
-
-    res.status(200).json({
-      success: true,
-      message: "Department employees fetched successfully",
-      employees,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
 // get All employees
 const getAllEmployee = async (req, res) => {
   try {
