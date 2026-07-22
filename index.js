@@ -8,6 +8,7 @@ import EmployeeRoute from "./Routes/EmployeeRoute.js";
 import RegisterRoute from "./Routes/RegisterRoute.js";
 import LoginRoute from "./Routes/LoginRoute.js";
 import Auth from "./Middlewares/Auth.js";
+import GetEmpDepartment from "./Routes/GetEmpDepartmentRoute.js";
 
 dotenv.config();
 const app = express();
@@ -19,7 +20,7 @@ app.use(
   cors({
     origin: ["http://localhost:5173", "https://emp-frontend-b8vf.vercel.app"],
     credentials: true,
-     methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   }),
 );
 
@@ -37,6 +38,7 @@ app.use("/api/admin", RegisterRoute);
 app.use("/api/adminlogin", LoginRoute);
 app.use("/api/employees", Auth, EmployeeRoute);
 app.use("/api/logout", Auth, EmployeeRoute);
+app.use("/api/employees/department", GetEmpDepartment);
 // Server
 // const PORT = process.env.PORT || 8080;
 // app.listen(PORT, () => {
