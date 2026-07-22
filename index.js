@@ -38,7 +38,7 @@ app.use("/api/admin", RegisterRoute);
 app.use("/api/adminlogin", LoginRoute);
 app.use("/api/employees", Auth, EmployeeRoute);
 app.use("/api/logout", Auth, EmployeeRoute);
-app.use("/api/employees/department", GetEmpDepartment);
+app.use("/api/employees/department",Auth, GetEmpDepartment);
 // Server
 // const PORT = process.env.PORT || 8080;
 // app.listen(PORT, () => {
