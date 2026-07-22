@@ -167,5 +167,4 @@ export {
   getAllEmployeeById,
   deleteAllEmployeeById,
   updateEmployeeById,
-  getEmployeesByDepartment
 };
