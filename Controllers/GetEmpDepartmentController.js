@@ -3,9 +3,10 @@ import EmployeeModel from "../Models/EmployeeModel.js";
 const getEmployeesByDepartment = async (req, res) => {
   try {
     const { department } = req.params;
+    console.log("Department Param:", department);
     // let { page, limit } = req.query;
-const employees = await EmployeeModel.find({department:department});
-res.send(employees);
+    const employees = await EmployeeModel.find({ department: department });
+    res.send(employees);
     // page = parseInt(page) || 1;
     // limit = parseInt(limit) || 5;
 
@@ -49,4 +50,4 @@ res.send(employees);
   }
 };
 
-export {getEmployeesByDepartment}
+export { getEmployeesByDepartment };
