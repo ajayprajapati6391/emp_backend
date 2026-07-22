@@ -6,6 +6,7 @@ const getEmployeesByDepartment = async (req, res) => {
     console.log("Department Param:", department);
     // let { page, limit } = req.query;
     const employees = await EmployeeModel.find({ department: department });
+    console.log(employees.length);
     res.send(employees);
     // page = parseInt(page) || 1;
     // limit = parseInt(limit) || 5;
