@@ -3,46 +3,42 @@ import EmployeeModel from "../Models/EmployeeModel.js";
 const getEmployeesByDepartment = async (req, res) => {
   try {
     const { department } = req.params;
-    console.log("Department Param:", department);
-    // let { page, limit } = req.query;
-    const employees = await EmployeeModel.find({ department: department });
-    console.log(employees.length);
-    console.log(employees);
-    res.send(employees);
-    // page = parseInt(page) || 1;
-    // limit = parseInt(limit) || 5;
+    let { page, limit } = req.query;
 
-    // const skip = (page - 1) * limit;
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 5;
 
-    // const searchCriteria = {
-    //   department: {
-    //     $regex: `^${department}$`,
-    //     $options: "i",
-    //   },
-    // };
+    const skip = (page - 1) * limit;
 
-    // const totalEmployee = await EmployeeModel.countDocuments(searchCriteria);
+    const searchCriteria = {
+      department: {
+        $regex: `^${department}$`,
+        $options: "i",
+      },
+    };
 
-    // const employees = await EmployeeModel.find(searchCriteria)
-    //   .skip(skip)
-    //   .limit(limit)
-    //   .sort({ updatedAt: -1 });
+    const totalEmployee = await EmployeeModel.countDocuments(searchCriteria);
 
-    // const totalPage = Math.ceil(totalEmployee / limit);
+    const employees = await EmployeeModel.find(searchCriteria)
+      .skip(skip)
+      .limit(limit)
+      .sort({ updatedAt: -1 });
 
-    // res.status(200).json({
-    //   success: true,
-    //   message: "Department employees fetched successfully",
-    //   data: {
-    //     employees,
-    //     pagination: {
-    //       totalEmployee,
-    //       totalPage,
-    //       currentPage: page,
-    //       pageSize: limit,
-    //     },
-    //   },
-    // });
+    const totalPage = Math.ceil(totalEmployee / limit);
+
+    res.status(200).json({
+      success: true,
+      message: "Department employees fetched successfully",
+      data: {
+        employees,
+        pagination: {
+          totalEmployee,
+          totalPage,
+          currentPage: page,
+          pageSize: limit,
+        },
+      },
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
